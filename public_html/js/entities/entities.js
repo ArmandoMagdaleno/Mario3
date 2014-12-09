@@ -31,7 +31,12 @@ game.PlayerEntity = me.Entity.extend({
 
         } else {
             this.body.vel.x = 0;
+        } 
+           if (me.input.isKeyPressed("up")){
+           this.body.vel.y -= this.body.accel.y * me.timer.tick;
         }
+    
+        
 
 
         this.body.update(delta);
@@ -40,7 +45,7 @@ game.PlayerEntity = me.Entity.extend({
 
         if (!this.big) {
             if (this.body.vel.x !== 0) {
-                if (!this.renderable.isCurrentAnimation("smallWalk")) {
+                if (!this.renderable.isCurrentAnimation("smallWalk") && !this.renderable.isCurrentAnimation("grow") && !this.renderable.isCurrentAnimation("shrink")) {
                     this.renderable.setCurrentAnimation("smallWalk");
                     this.renderable.setAnimationFrame();
                 }
@@ -49,7 +54,7 @@ game.PlayerEntity = me.Entity.extend({
             }
         } else {
             if (this.body.vel.x !== 0) {
-                if (!this.renderable.isCurrentAnimation("bigWalk") || this.renderable.isCurrentAnimation("grow") || this.renderable.isCurrentAnimation("shrink")) {
+                if (!this.renderable.isCurrentAnimation("bigWalk") && !this.renderable.isCurrentAnimation("grow") && !this.renderable.isCurrentAnimation("shrink")) {
                     this.renderable.setCurrentAnimation("bigWalk");
                     this.renderable.setAnimationFrame();
                 }
@@ -73,14 +78,14 @@ game.PlayerEntity = me.Entity.extend({
                     this.big = false;
                     this.body.vel.y -= this.body.accel.y * me.timer.tick;
                     this.jumping = true;
-                    this.renderable.setCurrentAnimation("shrink", "smallIdle");
+                    this.renderable.setCurrentAnimation("shrink", "idle");
                     this.renderable.setAnimationFrame();
                 } else {
                     me.state.change(me.state.MENU);
                 }
             }
         } else if (response.b.type === 'mushroom') {
-            this.renderable.setCurrentAnimation("grow", "smallIdle");
+            this.renderable.setCurrentAnimation("grow", "bigIdle");
             this.big = true;
             me.game.world.removeChild(response.b);
         }

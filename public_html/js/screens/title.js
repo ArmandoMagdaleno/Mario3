@@ -6,27 +6,26 @@ game.TitleScreen = me.ScreenObject.extend({
         var titleImage = new me.Sprite(0, 0, me.loader.getImage("title-screen"));
         me.game.world.addChild(titleImage, -10);
         me.input.bindKey(me.input.KEY.ENTER, "start");
-        
-        
-        me.game.world.addChild(new (me.Renderable.extend ({
-            init: function(){
+
+
+        me.game.world.addChild(new (me.Renderable.extend({
+            init: function() {
                 this._super(me.Renderable, 'init', [150, 30, me.game.viewport.width, me.game.viewport.height]);
                 this.font = new me.Font("arial", 46, "red");
             },
-            
-            draw: function(renderer){
+            draw: function(renderer) {
                 this.font.draw(renderer.getContext(), "Marioish", 450, 130);
                 this.font.draw(renderer.getContext(), "Press ENTER To Play", 250, 530);
-            }            
+            }
         })));
 
 
-        this.handler = me.event.subscribe(me.event.KEYDOWN, function(action, keyCode, edge){
+        this.handler = me.event.subscribe(me.event.KEYDOWN, function(action, keyCode, edge) {
             if (action === "start") {
                 me.state.change(me.state.PLAY);
             }
         });
-   },
+    },
     /**	
      *  action to perform when leaving this screen (state change)
      */
