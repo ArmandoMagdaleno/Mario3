@@ -31,10 +31,17 @@ game.PlayerEntity = me.Entity.extend({
 
         } else {
             this.body.vel.x = 0;
+        }  if (me.input.isKeyPressed("left")) {
+            this.flipX(!this.walkLeft);
+            this.body.vel.x -= (this.walkLeft) ? -this.body.accel.x * me.timer.tick : this.body.accel.x * me.timer.tick;
+            this.flipX(!this.walkRight);
+
         } 
            if (me.input.isKeyPressed("up")){
            this.body.vel.y -= this.body.accel.y * me.timer.tick;
         }
+        
+      
     
         
 
